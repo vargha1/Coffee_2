@@ -20,6 +20,11 @@ const renderer = new T.WebGLRenderer({ antialias: true, alpha: true });
 const draco = new DRACOLoader()
 draco.setDecoderPath('/examples/jsm/libs/draco/');
 loader.setDRACOLoader(draco);
+if (localStorage.getItem("clickCount") == null) {
+    let clickCount = 5
+    localStorage.setItem("clickCount", clickCount)
+}
+
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -38,27 +43,27 @@ const materials = {};
 
 camera.position.set(230, 230, 500)
 
-let elem = document.createElement('div');
-elem.className = "flex absolute h-[100dvh] items-center justify-center md:left-[20%] md:right-[20%] left-0 right-0"
-elem.id = "wrapper"
-elem.innerHTML = `
-    <div
-      class="flex md:flex-row flex-col relative bg-[#1d1f39] z-[26] h-fit rounded-[20px] flex-wrap transition-all duration-300"
-      id="popframe">
-      <form onsubmit="start()" class="flex flex-col px-5 py-1 justify-center items-center md:text-[16px] text-[10px] w-full">
-        <label class="py-2 text-white" for="name">Name of CoffeeShop</label>
-        <input type="text" name="name" class="px-2 py-1 border-zinc-500 border-2 rounded-[5px] text-black" id="name" maxlength="11" required>
-        <button
-          class="text-[40px] text-white hover:text-violet-600" type="submit">
-          Start</button>
-      </form>
-    </div>
-    `
-document.getElementById("startSection").appendChild(elem)
+// let elem = document.createElement('div');
+// elem.className = "flex absolute h-[100dvh] items-center justify-center md:left-[20%] md:right-[20%] left-0 right-0"
+// elem.id = "wrapper"
+// elem.innerHTML = `
+//     <div
+//       class="flex md:flex-row flex-col relative bg-[#1d1f39] z-[26] h-fit rounded-[20px] flex-wrap transition-all duration-300"
+//       id="popframe">
+//       <form onsubmit="start()" class="flex flex-col px-5 py-1 justify-center items-center md:text-[16px] text-[10px] w-full">
+//         <label class="py-2 text-white" for="name">Name of CoffeeShop</label>
+//         <input type="text" name="name" class="px-2 py-1 border-zinc-500 border-2 rounded-[5px] text-black" id="name" maxlength="11" required>
+//         <button
+//           class="text-[40px] text-white hover:text-violet-600" type="submit">
+//           Start</button>
+//       </form>
+//     </div>
+//     `
+// document.getElementById("startSection").appendChild(elem)
 
 document.addEventListener("DOMContentLoaded", () => {
     window.start = () => {
-        event.preventDefault();
+        // event.preventDefault();
         // const textGeometry = new TextGeometry(event.target[0].value, {
         //     font: font2,
         //     size: 3,
@@ -74,32 +79,32 @@ document.addEventListener("DOMContentLoaded", () => {
         audio.setAttribute('src', "CityCrowd.mp3")
         // audio.play()
         document.querySelector("#startSection").classList.add("hidden")
-        const textGeometry2 = new TextGeometry(document.getElementById("name").value, {
+        const textGeometry2 = new TextGeometry("Cafe VR", {
             font: font2,
             size: 20,
             depth: 0.6,
         });
         textGeometry2.computeBoundingBox();
-        const textGeometry3 = new TextGeometry("Home", {
+        const textGeometry3 = new TextGeometry("Start", {
             font: font2,
             size: 22.5,
             depth: 0.6,
         });
-        const textGeometry4 = new TextGeometry("Menu", {
+        const textGeometry4 = new TextGeometry(localStorage.getItem("clickCount"), {
             font: font2,
             size: 22.5,
             depth: 0.6,
         });
-        const textGeometry5 = new TextGeometry("About US", {
-            font: font2,
-            size: 22.5,
-            depth: 0.6,
-        });
-        const textGeometry6 = new TextGeometry("Contact US", {
-            font: font2,
-            size: 22.5,
-            depth: 0.6,
-        });
+        // const textGeometry5 = new TextGeometry("About US", {
+        //     font: font2,
+        //     size: 22.5,
+        //     depth: 0.6,
+        // });
+        // const textGeometry6 = new TextGeometry("Contact US", {
+        //     font: font2,
+        //     size: 22.5,
+        //     depth: 0.6,
+        // });
         textGeometry2.computeBoundingBox();
         const textMat = new T.MeshStandardMaterial({ color: 0xffffff })
         const textMesh = new T.Mesh(textGeometry2, textMat)
@@ -111,29 +116,29 @@ document.addEventListener("DOMContentLoaded", () => {
         textMesh2.rotation.y = 3.13;
         textMesh2.rotation.x = 1.55;
         textMesh2.position.z = -350;
-        textMesh2.position.x = 140;
-        textMesh2.name = "Home"
+        textMesh2.position.x = 0;
+        textMesh2.name = "start"
         const textMesh3 = new T.Mesh(textGeometry4, textMat)
         textMesh3.rotation.y = 3.13;
         textMesh3.rotation.x = 1.55;
         textMesh3.position.z = -350;
         textMesh3.position.x = 40;
-        textMesh3.name = "Menu"
-        const textMesh4 = new T.Mesh(textGeometry5, textMat)
-        textMesh4.rotation.y = 3.13;
-        textMesh4.rotation.x = 1.55;
-        textMesh4.position.z = -350;
-        textMesh4.position.x = -50;
-        const textMesh5 = new T.Mesh(textGeometry6, textMat)
-        textMesh5.rotation.y = 3.13;
-        textMesh5.rotation.x = 1.55;
-        textMesh5.position.z = -350;
-        textMesh5.position.x = -180;
+        textMesh3.name = "clickCount"
+        // const textMesh4 = new T.Mesh(textGeometry5, textMat)
+        // textMesh4.rotation.y = 3.13;
+        // textMesh4.rotation.x = 1.55;
+        // textMesh4.position.z = -350;
+        // textMesh4.position.x = -80;
+        // const textMesh5 = new T.Mesh(textGeometry6, textMat)
+        // textMesh5.rotation.y = 3.13;
+        // textMesh5.rotation.x = 1.55;
+        // textMesh5.position.z = -350;
+        // textMesh5.position.x = -180;
 
         scene.add(textMesh2)
         scene.add(textMesh3)
-        scene.add(textMesh4)
-        scene.add(textMesh5)
+        // scene.add(textMesh4)
+        // scene.add(textMesh5)
         gsap.to(camera.position, {
             x: 300,
             y: 50,
@@ -177,6 +182,33 @@ document.addEventListener("DOMContentLoaded", () => {
         //   })
         // }, 2005);
     }
+
+    window.handleClicker = () => {
+        scene.children.forEach(obj => {
+            if (obj.name == "clickCount") {
+                scene.remove(obj);
+            }
+        })
+        let count = localStorage.getItem("clickCount");
+        count++
+        localStorage.setItem("clickCount", count)
+        const textGeometry4 = new TextGeometry(localStorage.getItem("clickCount"), {
+            font: font2,
+            size: 22.5,
+            depth: 0.6,
+        });
+        const textMat = new T.MeshStandardMaterial({ color: 0xffffff })
+        const textMesh3 = new T.Mesh(textGeometry4, textMat)
+        textMesh3.rotation.y = 3.13;
+        textMesh3.rotation.x = 1.55;
+        textMesh3.position.z = -350;
+        textMesh3.position.x = 40;
+        textMesh3.name = "clickCount";
+        scene.add(textMesh3)
+        document.getElementById('player').stop()
+        document.getElementById('player').play()
+    }
+    start()
 })
 
 let mixer, clock;
@@ -212,6 +244,27 @@ loader.load("shop design Ai 02.gltf", function (gltf) {
     animate()
     scene.add(mesh)
     loading()
+})
+loader.setPath("./coin-model/")
+
+loader.load("scene.gltf", function (gltf) {
+    var mesh = gltf.scene;
+    // mesh.scale.set(0.2, 0.2, 0.2);
+    // const planeGeo = new T.PlaneGeometry(450, 450)
+    // const reflector = new Reflector(planeGeo, {
+    //     clipBias: 0.003,
+    //     textureWidth: window.innerWidth * window.devicePixelRatio,
+    //     textureHeight: window.innerHeight * window.devicePixelRatio,
+    //     color: 0x777777
+    // });
+
+    // console.log(mesh);
+    // // reflector.position.y = 1
+    // reflector.rotation.x = - Math.PI / 2;
+    // scene.add(reflector);
+    mesh.position.set(-402, 50, -16.5);
+    animate()
+    scene.add(mesh)
 })
 
 // let points2
@@ -292,47 +345,6 @@ controls.maxDistance = 1800;
 controls.rotateSpeed = 0.5;
 controls.update()
 
-// scene.add(new T.AmbientLight(0xffffff, 10))
-// const spl = new T.SpotLight(0xffffff, 99999999, 1200, Math.PI / 2 - 1.15, 1.2)
-// spl.position.set(-100, 1000, 700)
-// spl.target.position.set(-100, 0, 700)
-// scene.add(new T.SpotLightHelper(spl))
-// scene.add(spl)
-// const spl2 = new T.SpotLight(0xffffff, 99999999, 1200, Math.PI / 2 - 1.15, 1.2)
-// spl2.position.set(-100, 1000, -700)
-// spl2.target.position.set(-100, 0, -700)
-// scene.add(new T.SpotLightHelper(spl2))
-// scene.add(spl2)
-// const spl3 = new T.SpotLight(0xffffff, 99999999, 1200, Math.PI / 2 - 1.15, 1.2)
-// spl3.position.set(700, 1000, 0)
-// spl3.target.position.set(700, 0, 0)
-// scene.add(new T.SpotLightHelper(spl3))
-// scene.add(spl3)
-// const spl4 = new T.SpotLight(0xffffff, 99999999, 1200, Math.PI / 2 - 1.15, 1.2)
-// spl4.position.set(-860, 1000, 0)
-// spl4.target.position.set(-860, 0, 0)
-// scene.add(new T.SpotLightHelper(spl4))
-// scene.add(spl4)
-// const spl5 = new T.SpotLight(0xffffff, 99999999, 1200, Math.PI / 2 - 1.15, 1.2)
-// spl5.position.set(550, 1000, -600)
-// spl5.target.position.set(550, 0, -600)
-// scene.add(new T.SpotLightHelper(spl5))
-// scene.add(spl5)
-// const spl6 = new T.SpotLight(0xffffff, 99999999, 1200, Math.PI / 2 - 1.15, 1.2)
-// spl6.position.set(-650, 1000, -550)
-// spl6.target.position.set(-650, 0, -550)
-// scene.add(new T.SpotLightHelper(spl6))
-// scene.add(spl6)
-// const spl7 = new T.SpotLight(0xffffff, 99999999, 1200, Math.PI / 2 - 1.15, 1.2)
-// spl7.position.set(640, 1000, 600)
-// spl7.target.position.set(640, 0, 600)
-// scene.add(new T.SpotLightHelper(spl7))
-// scene.add(spl7)
-// const spl8 = new T.SpotLight(0xffffff, 99999999, 1200, Math.PI / 2 - 1.15, 1.2)
-// spl8.position.set(-860, 1000, 0)
-// spl8.target.position.set(-860, 0, 0)
-// scene.add(new T.SpotLightHelper(spl8))
-// scene.add(spl8)
 camera.add(new T.DirectionalLight(0xffffff, 10))
 scene.add(camera)
 const pl = new T.PointLight(0xffffff, 50000000)
@@ -357,26 +369,60 @@ function onMouseDown(event) {
     if (intersections.length > 0) {
         console.log(intersections[0].object);
         // intersections[0].object.layers.toggle(BLOOM_SCENE)
-        if (intersections[0].object.name == "Menu") {
+        // if (intersections[0].object.name == "Menu") {
+        //     gsap.to(camera.position, {
+        //         x: -350,
+        //         y: 110,
+        //         z: 20,
+        //         duration: 6,
+        //         ease: "expo.inOut",
+        //         onStart: () => controls.enabled = false,
+        //         onComplete: () => controls.enabled = true,
+        //     },)
+        //     gsap.to(controls.target, {
+        //         x: -400,
+        //         y: 0,
+        //         z: 0,
+        //         duration: 5,
+        //         ease: "expo.inOut",
+        //         onStart: () => controls.enabled = false,
+        //         onComplete: () => controls.enabled = true,
+        //         onUpdate: function () {
+        //             controls.update()
+        //         }
+        //     })
+        // }
+        if (intersections[0].object.name == "start") {
             gsap.to(camera.position, {
-                x: -350,
-                y: 110,
-                z: 20,
+                x: -392,
+                y: 53,
+                z: -85,
                 duration: 6,
                 ease: "expo.inOut",
                 onStart: () => controls.enabled = false,
                 onComplete: () => controls.enabled = true,
             },)
             gsap.to(controls.target, {
-                x: -400,
-                y: 0,
-                z: 0,
-                duration: 5,
+                x: -392,
+                y: 50,
+                z: -16.5,
+                duration: 6,
                 ease: "expo.inOut",
                 onStart: () => controls.enabled = false,
                 onComplete: () => controls.enabled = true,
                 onUpdate: function () {
                     controls.update()
+                }
+            })
+        }
+        if (intersections[0].object.name == "Object_4") {
+            intersections[0].object.scale.set(2, 2, 2)
+            scene.traverse(obj => {
+                if (obj.name == "Object_8") {
+                    obj.scale.set(2, 2, 2)
+                }
+                if (obj.name == "Object_6") {
+                    obj.scale.set(2, 2, 2)
                 }
             })
         }
@@ -544,7 +590,7 @@ window.addFlowers = () => {
 }
 function animate() {
     requestAnimationFrame(animate);
-    mixer.update(clock.getDelta());
+    // mixer.update(clock.getDelta());
     // var elapsedTime = clock.getElapsedTime();
 
     // Define the rotation speed
@@ -558,7 +604,7 @@ function animate() {
     // points.rotation.x = angle; // Rotate around X axis
     // points.rotation.y = angle; // Rotate around Y axis
     // points.rotation.z = angle;
-    console.log(camera.position);
+    // console.log(camera.position);
 
     scene.traverseVisible(obj => {
         if (obj.name == "Obj10PIV") {
