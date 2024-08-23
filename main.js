@@ -447,6 +447,7 @@ document.getElementById("loadingScreen").classList.add("z-[20]");
 document.getElementById("loadingScreen").innerHTML = `<img src="images/loading.gif" class="w-auto h-[200px]">`
 function loading() {
     document.getElementById("loadingScreen").classList.add("hidden")
+    document.getElementById("clickerWrapper").classList.remove("hidden")
 }
 
 let particles, pos = [], vel = [], isSnowing = false, isRaining = false, hasFlowers = false, rain, rainGeo, rainCount = 1600;
