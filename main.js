@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
             size: 22.5,
             depth: 0.6,
         });
-        const textGeometry4 = new TextGeometry(localStorage.getItem("clickCount"), {
+        const textGeometry4 = new TextGeometry('0', {
             font: font2,
             size: 22.5,
             depth: 0.6,
@@ -182,17 +182,17 @@ document.addEventListener("DOMContentLoaded", () => {
         //   })
         // }, 2005);
     }
-
+    let count = 0;
     window.handleClicker = () => {
         scene.children.forEach(obj => {
             if (obj.name == "clickCount") {
                 scene.remove(obj);
             }
         })
-        let count = localStorage.getItem("clickCount");
+        // let count = localStorage.getItem("clickCount");
         count++
-        localStorage.setItem("clickCount", count)
-        const textGeometry4 = new TextGeometry(localStorage.getItem("clickCount"), {
+        // localStorage.setItem("clickCount", count)
+        const textGeometry4 = new TextGeometry(count.toString(), {
             font: font2,
             size: 22.5,
             depth: 0.6,
